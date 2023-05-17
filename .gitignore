@@ -52,3 +52,4 @@ web-build/
 # others add
 /.vscode
 **/node_modules
+/web/.next
