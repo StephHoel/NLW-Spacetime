@@ -1,10 +1,11 @@
 import 'dotenv/config'
 
 import fastify from 'fastify'
-import { memoriesRoutes } from './routes/memories'
 import cors from '@fastify/cors'
-import { authRoutes } from './routes/auth'
 import jwt from '@fastify/jwt'
+
+import { memoriesRoutes } from './routes/memories'
+import { authRoutes } from './routes/auth'
 
 const app = fastify()
 
