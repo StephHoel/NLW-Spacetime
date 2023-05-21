@@ -23,9 +23,9 @@ import Icon from '@expo/vector-icons/Feather'
 import NLWLogo from '../src/assets/nlw-spacetime-logo.svg'
 
 export default function NewMemory() {
-  const { bottom, top } = useSafeAreaInsets()
-
   const router = useRouter()
+
+  const { bottom, top } = useSafeAreaInsets()
 
   const [preview, setPreview] = useState<string | null>(null)
 
