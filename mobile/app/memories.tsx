@@ -85,7 +85,6 @@ export default function NewMemory() {
               <View className="flex-row items-center gap-2">
                 <View className="h-px w-5 bg-gray-50" />
                 <Text className="font-body text-xs text-gray-100">
-                  12 de Abril, 2023
                   {dayjs(memory.createdAt).format('D[ de ]MMMM[, ]YYYY')}
                 </Text>
               </View>
