@@ -1,21 +1,14 @@
 import { EmptyMemories } from '@/components/EmptyMemories'
 import { api } from '@/lib/api'
 import { cookies } from 'next/headers'
-
+import { Memory } from '@/lib/interfaces'
 import dayjs from 'dayjs'
 import ptbr from 'dayjs/locale/pt-br'
-import Image from 'next/image'
 import { ArrowRight } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 
 dayjs.locale(ptbr)
-
-interface Memory {
-  id: string
-  createdAt: string
-  coverUrl: string
-  excerpt: string
-}
 
 export default async function Home() {
   const isAuthenticated = cookies().has('token')
@@ -40,21 +33,29 @@ export default async function Home() {
         return (
           <div key={memory.id} className="space-y-4">
             <time className="-ml-8 flex items-center gap-2 text-sm text-gray-100 before:h-px before:w-5 before:bg-gray-50">
-              {dayjs(memory.createdAt).format('D[ de ]MMMM[, ]YYYY')}
+              {dayjs(memory.dateMemory).format('D[ de ]MMMM[, ]YYYY')}
             </time>
-            <Image
-              src={memory.coverUrl}
-              alt=""
-              width={592}
-              height={280}
-              className="aspect-video w-full rounded-lg object-cover"
-            />
+
+            {memory.coverUrl ? (
+              <Image
+                src={memory.coverUrl}
+                alt=""
+                width={592}
+                height={280}
+                className="aspect-video w-full rounded-lg object-cover"
+              />
+            ) : null}
+
             <p className="text-lg leading-relaxed text-gray-100">
-              {memory.excerpt}
+              {memory.content}
             </p>
 
             <Link
-              href={`/memories/${memory.id}`}
+              href={{
+                pathname: '/memories/details',
+                query: { id: memory.id },
+              }}
+              // {`/memories/details/${memory.id}`}
               className="flex items-center gap-2 text-sm text-gray-200 hover:text-gray-100"
             >
               Ler mais
