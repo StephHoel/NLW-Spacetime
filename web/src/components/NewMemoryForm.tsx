@@ -1,17 +1,26 @@
 'use client'
 
-import { FormEvent } from 'react'
+import React, { FormEvent, useState } from 'react'
+import { useRouter } from 'next/navigation'
+
 import { Camera } from 'lucide-react'
+import Cookie from 'js-cookie'
+import DatePicker, { registerLocale } from 'react-datepicker'
+
+import 'react-datepicker/dist/react-datepicker.css'
+import { format } from 'date-fns'
+import ptBR from 'date-fns/locale/pt-BR'
 
 import { api } from '@/lib/api'
 
-import Cookie from 'js-cookie'
-
 import { MediaPicker } from '@/components/MediaPicker'
-import { useRouter } from 'next/navigation'
+
+registerLocale('pt-BR', ptBR) // Registra o locale pt-BR
 
 export function NewMemoryForm() {
   const router = useRouter()
+
+  const [dateSelected, setDateSelected] = useState<Date>(new Date())
 
   async function handleCreateMemory(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -22,7 +31,7 @@ export function NewMemoryForm() {
 
     let coverUrl = ''
 
-    if (fileToUpload) {
+    if (fileToUpload && fileToUpload?.length !== undefined) {
       const uploadFormData = new FormData()
       uploadFormData.set('file', fileToUpload)
 
@@ -30,10 +39,12 @@ export function NewMemoryForm() {
 
       coverUrl = uploadResponse.data.ok
 
-      console.log(uploadResponse.data)
+      // console.log(uploadResponse.data)
     }
 
     const token = Cookie.get('token')
+
+    const formattedDate = format(dateSelected, 'yyyy-MM-dd')
 
     await api.post(
       '/memories',
@@ -41,6 +52,7 @@ export function NewMemoryForm() {
         coverUrl,
         content: formData.get('content'),
         isPublic: formData.get('isPublic'),
+        dateMemory: new Date(formattedDate),
       },
       {
         headers: {
@@ -54,7 +66,7 @@ export function NewMemoryForm() {
 
   return (
     <form onSubmit={handleCreateMemory} className="flex flex-1 flex-col gap-2">
-      <div className="flex items-center gap-4">
+      <div className="flex items-center justify-between gap-4">
         <label
           htmlFor="media"
           className="flex cursor-pointer items-center gap-1.5 text-sm text-gray-200 hover:text-gray-100"
@@ -62,7 +74,6 @@ export function NewMemoryForm() {
           <Camera className="h-4 w-4" />
           Anexar mídia
         </label>
-
         <label
           htmlFor="isPublic"
           className="flex items-center gap-1.5 text-sm text-gray-200 hover:text-gray-100"
@@ -75,6 +86,20 @@ export function NewMemoryForm() {
             className="h-4 w-4 rounded border-gray-400 bg-gray-700 text-purple-500"
           />
           Tornar memória pública
+        </label>
+
+        <label htmlFor="">
+          <DatePicker
+            selected={dateSelected}
+            onChange={(date: Date) => {
+              setDateSelected(date)
+            }}
+            dateFormat="dd/MM/yyyy"
+            locale="pt-BR"
+            placeholderText="Quando?"
+            maxDate={new Date()}
+            className="rounded border border-gray-300 bg-transparent px-4 py-2 text-gray-200 placeholder:text-gray-300  focus:border-purple-500 focus:outline-none"
+          />
         </label>
       </div>
 
