@@ -3,4 +3,5 @@ export interface Memory {
   coverUrl: string
   content: string
   dateMemory: string
+  isPublic: boolean
 }
