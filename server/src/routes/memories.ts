@@ -13,7 +13,7 @@ export async function memoriesRoutes(app: FastifyInstance) {
         userId: request.user.sub,
       },
       orderBy: {
-        createdAt: 'asc',
+        dateMemory: 'asc',
       },
     })
 
@@ -21,11 +21,11 @@ export async function memoriesRoutes(app: FastifyInstance) {
       return {
         id: memory.id,
         coverUrl: memory.coverUrl,
-        excerpt:
+        content:
           memory.content.length > 115
             ? memory.content.substring(0, 115).concat('...')
             : memory.content,
-        createdAt: memory.createdAt,
+        dateMemory: memory.dateMemory,
       }
     })
   })
@@ -55,9 +55,12 @@ export async function memoriesRoutes(app: FastifyInstance) {
       content: z.string(),
       coverUrl: z.string(),
       isPublic: z.coerce.boolean().default(false),
+      dateMemory: z.string(),
     })
 
-    const { content, coverUrl, isPublic } = bodySchema.parse(request.body)
+    const { content, coverUrl, isPublic, dateMemory } = bodySchema.parse(
+      request.body,
+    )
 
     const memory = await prisma.memory.create({
       data: {
@@ -65,6 +68,7 @@ export async function memoriesRoutes(app: FastifyInstance) {
         coverUrl,
         isPublic,
         userId: request.user.sub,
+        dateMemory: new Date(dateMemory),
       },
     })
 
