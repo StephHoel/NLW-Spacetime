@@ -1,25 +1,25 @@
-import { EmptyMemories } from '@/components/EmptyMemories'
-import { api } from '@/lib/api'
-import { cookies } from 'next/headers'
-import { Memory } from '@/lib/interfaces'
-import dayjs from 'dayjs'
-import ptbr from 'dayjs/locale/pt-br'
-import { ArrowRight } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+
+import { ArrowRight } from 'lucide-react'
+
+import { EmptyMemories } from '@/components/EmptyMemories'
+
+import { api } from '@/lib/api'
+import { getToken, hasAuth } from '@/lib/auth'
+import { Memory } from '@/lib/interfaces'
+
+import dayjs from 'dayjs'
+import ptbr from 'dayjs/locale/pt-br'
 
 dayjs.locale(ptbr)
 
 export default async function Home() {
-  const isAuthenticated = cookies().has('token')
-
-  if (!isAuthenticated) return <EmptyMemories />
-
-  const token = cookies().get('token')?.value
+  if (!hasAuth) return <EmptyMemories />
 
   const response = await api.get('/memories', {
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${getToken()}`,
     },
   })
 

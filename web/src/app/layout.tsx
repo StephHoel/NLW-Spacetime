@@ -1,5 +1,3 @@
-import { cookies } from 'next/headers'
-
 import { ReactNode } from 'react'
 import './globals.css'
 import {
@@ -11,6 +9,7 @@ import { SignIn } from '@/components/SignIn'
 import { Hero } from '@/components/Hero'
 import { Copyright } from '@/components/Copyright'
 import { Profile } from '@/components/Profile'
+import { hasAuth } from '@/lib/auth'
 
 const roboto = Roboto({ subsets: ['latin'], variable: '--font-roboto' })
 const baiJamjuree = BaiJamjuree({
@@ -26,8 +25,6 @@ export const metadata = {
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {
-  const isAuthenticated = cookies().has('token')
-
   return (
     <html lang="pt-br">
       <body
@@ -43,7 +40,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <div className="absolute bottom-0 right-2 top-0 w-2 bg-stripes" />
 
             {/* Sign In */}
-            {isAuthenticated ? <Profile /> : <SignIn />}
+            {hasAuth() ? <Profile /> : <SignIn />}
 
             {/* Hero */}
             <Hero />
