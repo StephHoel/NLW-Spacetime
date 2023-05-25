@@ -8,13 +8,13 @@ export function MediaPicker() {
   function onFileSelected(event: ChangeEvent<HTMLInputElement>) {
     const { files } = event.target
 
-    if (!files) {
-      return
+    if (files && files[0].size <= 5 * 1024 * 1024) {
+      const previewURL = URL.createObjectURL(files[0])
+
+      setPreview(previewURL)
+    } else {
+      alert('O arquivo excede o tamanho máximo permitido (5MB).')
     }
-
-    const previewURL = URL.createObjectURL(files[0])
-
-    setPreview(previewURL)
   }
 
   return (
@@ -24,7 +24,7 @@ export function MediaPicker() {
         name="coverUrl"
         type="file"
         id="media"
-        accept="image/*"
+        accept="image/*, video/*"
         className="invisible h-0 w-0"
       />
 
