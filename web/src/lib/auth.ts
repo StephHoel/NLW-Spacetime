@@ -1,20 +1,21 @@
-import { cookies } from 'next/headers'
 import decode from 'jwt-decode'
+import { cookies } from 'next/headers'
 
-interface User {
-  sub: string
-  name: string
-  avatarUrl: string
-}
+import { User } from './interfaces'
+import { redirect } from './redirect'
 
 export function getUser(): User {
-  const token = cookies().get('token')?.value
+  if (!hasAuth()) redirect('/')
 
-  if (!token) {
-    throw new Error('Unauthenticated')
-  }
-
-  const user: User = decode(token)
+  const user: User = decode(getToken() ?? '')
 
   return user
+}
+
+export function getToken() {
+  return cookies().get('token')?.value
+}
+
+export function hasAuth() {
+  return cookies().has('token')
 }
