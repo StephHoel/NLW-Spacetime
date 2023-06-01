@@ -29,7 +29,7 @@ This is a web and mobile application to record memories in a time capsule, where
 - [x] [WEB] List memories by date
 - [x] [WEB] Display memories details <!-- In details page, include button for edit or delete the memory  -->
 - [x] [WEB] Possibility to share a public memory (details page)
-- [ ] [WEB] Edit a memory
+- [x] [WEB] Edit a memory
 - [ ] [WEB] Delete a memory
 
 - [x] [MOBILE] Login with Github
