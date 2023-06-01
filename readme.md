@@ -26,9 +26,9 @@ This is a web and mobile application to record memories in a time capsule, where
 - [x] [WEB] Login with Github
 - [x] [WEB] Record the memory with a date chooser 
 - [x] [WEB] File (image or video) upload limit to 5MB (in client and in server)
-- [ ] [WEB] Possibility to share a public memory (in register and details page)
 - [x] [WEB] List memories by date
 - [x] [WEB] Display memories details <!-- In details page, include button for edit or delete the memory  -->
+- [x] [WEB] Possibility to share a public memory (details page)
 - [ ] [WEB] Edit a memory
 - [ ] [WEB] Delete a memory
 
@@ -36,9 +36,9 @@ This is a web and mobile application to record memories in a time capsule, where
 - [x] [MOBILE] Record the memory with current date
 - [ ] [MOBILE] Record the memory with a date chooser 
 - [ ] [MOBILE] File (image or video) upload limit to 5MB (in client and in server)
-- [ ] [MOBILE] Possibility to share a public memory (in register and details page)
 - [ ] [MOBILE] List memories by date
 - [ ] [MOBILE] Display memories details <!-- In details page, include button for edit or delete the memory  -->
+- [ ] [MOBILE] Possibility to share a public memory (details page)
 - [ ] [MOBILE] Edit a memory
 - [ ] [MOBILE] Delete a memory
 
