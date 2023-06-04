@@ -34,7 +34,9 @@ export function EditMemoryForm(memory: Memory) {
 
     const token = Cookie.get('token')
 
-    const formattedDate = format(dateSelected, 'yyyy-MM-dd')
+    const dateMemory = new Date(
+      `${format(dateSelected, 'yyyy-MM-dd')}T04:00:00.000Z`,
+    )
 
     await api.put(
       `/memories/${memory.id}`,
@@ -42,7 +44,7 @@ export function EditMemoryForm(memory: Memory) {
         coverUrl: memory.coverUrl,
         content,
         isPublic,
-        dateMemory: new Date(formattedDate),
+        dateMemory,
       },
       {
         headers: {

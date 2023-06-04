@@ -48,13 +48,17 @@ export function NewMemoryForm() {
         // console.log(uploadResponse.data)
       }
 
+      const dateMemory = new Date(
+        `${format(dateSelected, 'yyyy-MM-dd')}T04:00:00.000Z`,
+      )
+
       await api.post(
         '/memories',
         {
           coverUrl,
           content: formData.get('content'),
           isPublic: formData.get('isPublic'),
-          dateMemory: new Date(format(dateSelected, 'yyyy-MM-dd')),
+          dateMemory,
         },
         {
           headers: {
