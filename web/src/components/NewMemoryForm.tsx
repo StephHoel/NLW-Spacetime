@@ -42,21 +42,17 @@ export function NewMemoryForm() {
       // console.log(uploadResponse.data)
     }
 
-    const token = Cookie.get('token')
-
-    const formattedDate = format(dateSelected, 'yyyy-MM-dd')
-
     await api.post(
       '/memories',
       {
         coverUrl,
         content: formData.get('content'),
         isPublic: formData.get('isPublic'),
-        dateMemory: new Date(formattedDate),
+        dateMemory: new Date(format(dateSelected, 'yyyy-MM-dd')),
       },
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${Cookie.get('token')}`,
         },
       },
     )
