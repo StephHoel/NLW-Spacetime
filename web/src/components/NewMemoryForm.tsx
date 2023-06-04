@@ -1,13 +1,14 @@
 'use client'
 
-import React, { FormEvent, useState } from 'react'
+import { FormEvent, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import Cookie from 'js-cookie'
 
 import { Camera } from 'lucide-react'
-import Cookie from 'js-cookie'
-import DatePicker, { registerLocale } from 'react-datepicker'
 
+import DatePicker, { registerLocale } from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
+
 import { format } from 'date-fns'
 import ptBR from 'date-fns/locale/pt-BR'
 
@@ -31,33 +32,39 @@ export function NewMemoryForm() {
 
     let coverUrl = ''
 
-    if (fileToUpload && fileToUpload?.length !== undefined) {
-      const uploadFormData = new FormData()
-      uploadFormData.set('file', fileToUpload)
+    // console.log(fileToUpload)
 
-      const uploadResponse = await api.post('/upload', uploadFormData)
+    const size = fileToUpload instanceof File ? fileToUpload.size : 0
 
-      coverUrl = uploadResponse.data.ok
+    if (formData.get('content') || size !== 0) {
+      if (fileToUpload && size !== 0) {
+        const uploadFormData = new FormData()
+        uploadFormData.set('file', fileToUpload)
 
-      // console.log(uploadResponse.data)
-    }
+        const uploadResponse = await api.post('/upload', uploadFormData)
 
-    await api.post(
-      '/memories',
-      {
-        coverUrl,
-        content: formData.get('content'),
-        isPublic: formData.get('isPublic'),
-        dateMemory: new Date(format(dateSelected, 'yyyy-MM-dd')),
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${Cookie.get('token')}`,
+        coverUrl = uploadResponse.data.ok
+
+        // console.log(uploadResponse.data)
+      }
+
+      await api.post(
+        '/memories',
+        {
+          coverUrl,
+          content: formData.get('content'),
+          isPublic: formData.get('isPublic'),
+          dateMemory: new Date(format(dateSelected, 'yyyy-MM-dd')),
         },
-      },
-    )
+        {
+          headers: {
+            Authorization: `Bearer ${Cookie.get('token')}`,
+          },
+        },
+      )
 
-    router.push('/')
+      router.push('/')
+    } else alert('Não é possível cadastrar uma memória vazia')
   }
 
   return (
