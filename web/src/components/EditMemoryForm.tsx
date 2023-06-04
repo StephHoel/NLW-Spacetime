@@ -115,12 +115,22 @@ export function EditMemoryForm(memory: Memory) {
         }}
       />
 
-      <button
-        type="submit"
-        className="inline-block rounded-full bg-green-500 px-5 py-3 font-alt text-sm uppercase leading-none text-black hover:bg-green-600"
-      >
-        salvar
-      </button>
+      <div className="flex w-full justify-between space-x-4">
+        <button
+          onClick={() => {
+            router.push(`/memories/details?id=${memory.id}`)
+          }}
+          className="inline-block w-1/2 rounded-full bg-red-500 px-5 py-3 text-center font-alt text-sm uppercase leading-none text-gray-50  hover:bg-red-600"
+        >
+          cancelar
+        </button>
+        <button
+          type="submit"
+          className="inline-block w-1/2 rounded-full bg-green-500 px-5 py-3 font-alt text-sm uppercase leading-none text-black hover:bg-green-600"
+        >
+          salvar
+        </button>
+      </div>
     </form>
   )
 }
