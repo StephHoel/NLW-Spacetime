@@ -8,7 +8,7 @@ This is a web and mobile application to record memories in a time capsule, where
 
 🔹 [Features](#features)
 
-🔹 [Screens](#screens)
+🔹 [Screens WEB](#screens-web)
 
 🔹 [API Doc](#api-doc)
 
@@ -42,7 +42,7 @@ This is a web and mobile application to record memories in a time capsule, where
 - [ ] [MOBILE] Edit a memory
 - [ ] [MOBILE] Delete a memory
 
-## Screens
+## Screens WEB
 
 #### Home without Login
 <p align="center">
