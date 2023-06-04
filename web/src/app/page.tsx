@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import Link from 'next/link'
 
 import { ArrowRight } from 'lucide-react'
 
@@ -50,17 +49,13 @@ export default async function Home() {
               {memory.content}
             </p>
 
-            <Link
-              href={{
-                pathname: '/memories/details',
-                query: { id: memory.id },
-              }}
-              // {`/memories/details/${memory.id}`}
+            <a
+              href={`/memories/details?id=${memory.id}`}
               className="flex items-center gap-2 text-sm text-gray-200 hover:text-gray-100"
             >
               Ler mais
               <ArrowRight className="h-4 w-4" />
-            </Link>
+            </a>
           </div>
         )
       })}
