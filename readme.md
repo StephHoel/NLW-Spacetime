@@ -27,7 +27,7 @@ This is a web and mobile application to record memories in a time capsule, where
 - [x] [WEB] Record the memory with a date chooser 
 - [x] [WEB] File (image or video) upload limit to 5MB (in client and in server)
 - [x] [WEB] List memories by date
-- [x] [WEB] Display memories details <!-- In details page, include button for edit or delete the memory  -->
+- [x] [WEB] Display memories details
 - [x] [WEB] Possibility to share a public memory (details page)
 - [x] [WEB] Edit a memory
 - [x] [WEB] Delete a memory
@@ -96,50 +96,46 @@ This is a web and mobile application to record memories in a time capsule, where
 
 ## API Doc
 
-Coming soon...
+#### Paths
 
-<!-- 
-### Caminhos
-| Fornecedor | (suppplier)                  |                                                |
-| ---------- | ---------------------------- | ---------------------------------------------- |
-| GET        | `/api/supplier`              | Retorna todos                                  |
-| GET        | `/api/supplier/name/${name}` | Retorna todos que contém nome informado        |
-| GET        | `/api/supplier/doc/${doc}`   | Retorna todos que contém CPNJ ou CPF informado |
-| GET        | `/api/supplier/${id}`        | Retorna 1                                      |
-| POST       | `/api/supplier`              | Cria                                           |
-| PUT        | `/api/supplier`              | Atualiza                                       |
-| DELETE     | `/api/supplier`              | Deleta                                         |
+| Method | Path              | Definition           |
+| ------ | ----------------- | -------------------- |
+| POST   | `/register`       | Register a user      |
+| POST   | `/upload`         | Upload a image/video |
+| GET    | `/memories`       | Return all memories  |
+| GET    | `/memories/${id}` | Return a memory      |
+| POST   | `/memories`       | Create a memory      |
+| PUT    | `/memories/${id}` | Update a memory      |
+| DELETE | `/memories/${id}` | Delete a memory      |
 
-### Definição
+#### Params
 
-| Parâmetro  | Tipo     | Descrição                                                            |
-| ---------- | -------- | -------------------------------------------------------------------- |
-| `id`       | `UUID`   | **Obrigatório**. O ID do fornecedor ou companhia que você quer       |
-| `name`     | `String` | **Obrigatório**. O nome do fornecedor ou companhia que você quer     |
-| `doc`      | `String` | **Obrigatório**. O CNPJ/CPF do fornecedor ou companhia que você quer |
-| `usarname` | `String` | **Obrigatório**. O username que você quer verificar                  |
-| `password` | `String` | **Obrigatório**. A password que você quer verificar                  |
+| Param | Type   | Definition            |
+| ----- | ------ | --------------------- |
+| `id`  | `UUID` | **NEEDED** Memory ID |
 
-### Schemas 
+#### Schemas
 
-| Fornecedor                |                                                              |
-| ------------------------- | ------------------------------------------------------------ |
-| idSupplier                | string($uuid)                                                |
-| cnpjCpfSupplier           | string                                                       |
-| cnpjCpfSupplier (pattern) | `^[0-9]{2}[.]?[0-9]{3}[.]?[0-9]{3}[/]?[0-9]{4}[-]?[0-9]{2}$` |
-| cnpjCpfSupplier (pattern) | `^[0-9]{3}[.]?[0-9]{3}[.]?[0-9]{3}[-]?[0-9]{2}$`             |
-| isCnpjSupplier            | boolean                                                      |
-| nameSupplier              | string                                                       |
-| postalSupplier            | string                                                       |
-| postalSupplier (pattern)  | `^[0-9]{2}[.]?[0-9]{3}[-]?[0-9]{3}$`                         |
-| emailSupplier             | string                                                       |
-| rgSupplier                | string                                                       |
-| rgSupplier (pattern)      | `^[0-9]{2}[.]?[0-9]{3}[.]?[0-9]{3}[-]?[0-9]{1}$`             |
-| birthdaySupplier          | string($date)                                                |
-| createdAt                 | string($date-time)                                           |
-| updatedAt                 | string($date-time)                                           |
+| User      |                    |
+| --------- | ------------------ |
+| id        | string($uuid)      |
+| github    | int                |
+| name      | string             |
+| login     | string             |
+| avatarUrl | string             |
+| createdAt | string($date-time) |
+| updatedAt | string($date-time) |
 
--->
+| Memory     |                    |
+| ---------- | ------------------ |
+| id         | string($uuid)      |
+| userId     | string($uuid)      |
+| coverUrl   | string             |
+| content    | string             |
+| isPublic   | boolean            |
+| dateMemory | string($date-time) |
+| createdAt  | string($date-time) |
+| updatedAt  | string($date-time) |
 
 ## Devs
 
